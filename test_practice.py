@@ -1,3 +1,5 @@
+import pytest
+
 def validate (serial_no):
     digits = list(map(int,str(serial_no)))
     second_elements = digits[0::2]
@@ -21,9 +23,13 @@ def validate (serial_no):
     else:
         result = False
 
-    print("Valid card number" if result == True else "invalid card number")
+    print("Valid card number" if result else "invalid card number")
     return result
 
+def test_validate_valid_card():
+    assert validate (1234567812345670) == True
+    assert validate(1378946258794531) == True
 
-custom = validate (1378946258794531)
-
+def test_validate_invalid_card():
+    assert validate(1578946258794531) == False
+    assert validate(1434567812345670) == False
